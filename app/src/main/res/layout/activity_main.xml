@@ -16,23 +16,58 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/redButton"
-                android:layout_width="1dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Red Ball"
-                android:textAllCaps="false"
-                android:textSize="20dp" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/greenButton"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
+                <SeekBar
+                    android:id="@+id/yint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="1000" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Y - Intercept" />
+
+                <TextView
+                    android:id="@+id/ynum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Green Rectangle"
-                android:textAllCaps="false"
-                android:textSize="20dp" />
+                android:orientation="vertical">
+
+                <SeekBar
+                    android:id="@+id/xint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="1000" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="X - Intercept" />
+
+                <TextView
+                    android:id="@+id/xnum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

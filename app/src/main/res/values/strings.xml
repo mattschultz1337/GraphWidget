@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Surface</string>
+    <string name="dialog_title">Coordinates Hit</string>
 </resources>

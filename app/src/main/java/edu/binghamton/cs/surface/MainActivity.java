@@ -1,5 +1,6 @@
 package edu.binghamton.cs.surface;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -12,24 +13,24 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
 
-    private Button redButton = null;
 
-    private Button greenButton = null;
 
     private boolean drawBall = true;
 
     private LinearLayout canvasLayout = null;
 
     MySurface customSurfaceView = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setTitle("SurfaceView");
 
         initControls();
@@ -49,36 +50,91 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         // Add the custom surfaceview object to the layout.
         canvasLayout.addView(customSurfaceView);
 
-        // Click this button to draw a red circle ball move after finger touch.
-        redButton.setOnClickListener(new View.OnClickListener() {
+        final SeekBar xint = (SeekBar) findViewById(R.id.xint);
+        final TextView xnum = (TextView) findViewById(R.id.xnum);
+        final int xstep = 1;
+        int xmax = 1080;
+        final int xmin = 0;
+
+// Ex :
+// If you want values from 3 to 5 with a step of 0.1 (3, 3.1, 3.2, ..., 5)
+// this means that you have 21 possible values in the seekbar.
+// So the range of the seek bar will be [0 ; (5-3)/0.1 = 20].
+        xint.setMax((xmax - xmin) / xstep);
+        xint.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
-            public void onClick(View view) {
-                drawBall = true;
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // TODO Auto-generated method stu
+                double xvalue = xmin + (progress * xstep);
+
+                customSurfaceView.setCircleX((float) progress);
+
+                // Create and set a red paint to custom surfaceview.
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                customSurfaceView.setPaint(paint);
+                xnum.setText(String.valueOf(xvalue));
+                customSurfaceView.drawBall();
             }
         });
 
-        // Click this button to draw a green rectangle move after finger touch.
-        greenButton.setOnClickListener(new View.OnClickListener() {
+
+        final SeekBar yint = (SeekBar) findViewById(R.id.yint);
+        final TextView ynum = (TextView) findViewById(R.id.ynum);
+        final int ystep = 1;
+        int ymax = 1900;
+        final int ymin = 0;
+
+// Ex :
+// If you want values from 3 to 5 with a step of 0.1 (3, 3.1, 3.2, ..., 5)
+// this means that you have 21 possible values in the seekbar.
+// So the range of the seek bar will be [0 ; (5-3)/0.1 = 20].
+        yint.setMax((ymax - ymin) / ystep);
+        yint.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
-            public void onClick(View view) {
-                drawBall = false;
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // TODO Auto-generated method stu
+                double yvalue = ymin + (progress * ystep);
+
+                customSurfaceView.setCircleY((float) yvalue);
+
+                // Create and set a red paint to custom surfaceview.
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                customSurfaceView.setPaint(paint);
+                ynum.setText(String.valueOf(yvalue));
+                customSurfaceView.drawBall();
+
             }
         });
-
     }
 
     /* Initialise ui controls. */
     private void initControls()
     {
-        if(redButton == null)
-        {
-            redButton = (Button)findViewById(R.id.redButton);
-        }
 
-        if(greenButton == null)
-        {
-            greenButton = (Button)findViewById(R.id.greenButton);
-        }
 
         // This layout is used to contain custom surfaceview object.
         if(canvasLayout == null)
@@ -99,28 +155,21 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             float y = motionEvent.getY();
 
-            customSurfaceView.setCircleX(x);
+            //customSurfaceView.setCircleX(x);
 
-            customSurfaceView.setCircleY(y);
+            //customSurfaceView.setCircleY(y);
 
-            if (drawBall) {
+            //if (drawBall) {
                 // Create and set a red paint to custom surfaceview.
-                Paint paint = new Paint();
-                paint.setColor(Color.RED);
-                customSurfaceView.setPaint(paint);
+                //Paint paint = new Paint();
+               // paint.setColor(Color.RED);
+               // customSurfaceView.setPaint(paint);
 
-                customSurfaceView.drawBall();
-            } else {
-                // Create and set a green paint to custom surfaceview.
-                Paint paint = new Paint();
-                paint.setColor(Color.GREEN);
-                customSurfaceView.setPaint(paint);
-
-                customSurfaceView.drawRect();
-            }
+              //  customSurfaceView.drawBall();
+           // }
 
             // Tell android os the onTouch event has been processed.
-            return true;
+           return true;
         }else
         {
             // Tell android os the onTouch event has not been processed.

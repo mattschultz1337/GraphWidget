@@ -1,5 +1,6 @@
 package edu.binghamton.cs.surface;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,20 @@ import android.graphics.Paint.Style;
 import android.graphics.PixelFormat;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Layout;
+import android.view.MotionEvent;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import static android.app.PendingIntent.getActivity;
 
 public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder = null;
@@ -52,15 +67,15 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
 
         Paint surfaceBackground = new Paint();
         // Set the surfaceview background color.
-        surfaceBackground.setColor(Color.BLACK);
+        surfaceBackground.setColor(Color.YELLOW);
         // Draw the surfaceview background color.
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
 
         // Draw the circle.
         paint.setColor(Color.RED);
-        canvas.drawCircle(circleX, circleY, 100, paint);
+        paint.setStrokeWidth(25);
+        canvas.drawLine(0,0,circleX,circleY,paint);
 
-        canvas.drawCircle(50, 50, 200, paint);
 
         // Unlock the canvas object and post the new draw.
         surfaceHolder.unlockCanvasAndPost(canvas);
@@ -69,6 +84,7 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     /* This method will be invoked to draw a circle in canvas. */
     public void drawRect()
     {
+
         Canvas canvas = surfaceHolder.lockCanvas();
 
         Paint surfaceBackground = new Paint();
