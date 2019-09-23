@@ -29,6 +29,8 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     private Paint paint = null;
     private float circleX = 0;
     private float circleY = 0;
+    private float xint = 0;
+    private float yint = 0;
 
     public MySurface(Context context) {
         super(context);
@@ -44,6 +46,8 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+
         drawBall();
     }
     @Override
@@ -60,6 +64,12 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     /* This method will be invoked to draw a circle in canvas. */
     public void drawBall()
     {
+
+        float slope = (-yint)/(xint);
+        float rightBoundY = (slope*540) + yint;
+        rightBoundY = 950-rightBoundY;
+        float leftBoundX = slope*(-540) + yint;
+        leftBoundX = 950-leftBoundX;
         surfaceHolder = getHolder();
 
         // Get and lock canvas object from surfaceHolder.
@@ -67,14 +77,17 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
 
         Paint surfaceBackground = new Paint();
         // Set the surfaceview background color.
-        surfaceBackground.setColor(Color.YELLOW);
+        surfaceBackground.setColor(Color.WHITE);
         // Draw the surfaceview background color.
         canvas.drawRect(0, 0, this.getWidth(), this.getHeight(), surfaceBackground);
-
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(15);
+        canvas.drawLine(540,0,540,this.getHeight(), paint);
+        canvas.drawLine(0,950,this.getWidth(),950, paint);
         // Draw the circle.
         paint.setColor(Color.RED);
         paint.setStrokeWidth(25);
-        canvas.drawLine(0,0,circleX,circleY,paint);
+        canvas.drawLine(0,leftBoundX,1080,rightBoundY,paint);
 
 
         // Unlock the canvas object and post the new draw.
@@ -105,6 +118,20 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setCircleX(float circleX) {
         this.circleX = circleX;
+    }
+    public float getXint() {
+        return xint;
+    }
+
+    public void setXint(float xint) {
+        this.xint = xint;
+    }
+    public float getYint() {
+        return yint;
+    }
+
+    public void setYint(float yint) {
+        this.yint = yint;
     }
 
     public float getCircleY() {

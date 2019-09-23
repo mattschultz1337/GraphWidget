@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         final SeekBar xint = (SeekBar) findViewById(R.id.xint);
         final TextView xnum = (TextView) findViewById(R.id.xnum);
         final int xstep = 1;
-        int xmax = 1080;
-        final int xmin = 0;
+        int xmax = 540;
+        final int xmin = -540;
 
 // Ex :
 // If you want values from 3 to 5 with a step of 0.1 (3, 3.1, 3.2, ..., 5)
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stu
-                double xvalue = xmin + (progress * xstep);
+                float xvalue = xmin + (progress * xstep);
 
                 customSurfaceView.setCircleX((float) progress);
 
@@ -84,7 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 Paint paint = new Paint();
                 paint.setColor(Color.RED);
                 customSurfaceView.setPaint(paint);
+
                 xnum.setText(String.valueOf(xvalue));
+                customSurfaceView.setXint(xvalue);
                 customSurfaceView.drawBall();
             }
         });
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stu
-                double yvalue = ymin + (progress * ystep);
+                float yvalue = ymin + (progress * ystep);
 
                 customSurfaceView.setCircleY((float) yvalue);
 
@@ -124,7 +126,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 Paint paint = new Paint();
                 paint.setColor(Color.RED);
                 customSurfaceView.setPaint(paint);
+                if(yvalue == 950){
+                    yvalue = 0;
+                } else {
+                    yvalue = (yvalue - 950)* -1;
+                }
                 ynum.setText(String.valueOf(yvalue));
+                customSurfaceView.setYint(yvalue);
                 customSurfaceView.drawBall();
 
             }
