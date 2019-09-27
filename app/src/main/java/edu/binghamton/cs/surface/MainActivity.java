@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         // Add the custom surfaceview object to the layout.
         canvasLayout.addView(customSurfaceView);
-
+        //customSurfaceView.drawBall();
         final SeekBar xint = (SeekBar) findViewById(R.id.xint);
         final TextView xnum = (TextView) findViewById(R.id.xnum);
         final int xstep = 1;

@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import static android.app.PendingIntent.getActivity;
+import static java.lang.Float.NEGATIVE_INFINITY;
+import static java.lang.Float.POSITIVE_INFINITY;
 
 public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder = null;
@@ -89,7 +91,16 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
         // Draw the circle.
         paint.setColor(Color.RED);
         paint.setStrokeWidth(25);
-        canvas.drawLine(0,leftBoundX,1080,rightBoundY,paint);
+        if (leftBoundX == NEGATIVE_INFINITY || leftBoundX == POSITIVE_INFINITY){
+            leftBoundX = circleY;
+            rightBoundY = circleY;
+            canvas.drawLine(0,leftBoundX,1080,rightBoundY,paint);
+        } else if(slope==0){
+            canvas.drawLine(xint+540, 0, xint+540, 1900, paint);
+        }else{
+
+            canvas.drawLine(0, leftBoundX, 1080, rightBoundY, paint);
+        }
 
 
         // Unlock the canvas object and post the new draw.
