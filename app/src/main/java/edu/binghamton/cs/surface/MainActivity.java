@@ -1,9 +1,12 @@
 package edu.binghamton.cs.surface;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -12,6 +15,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -163,6 +167,18 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
             float y = motionEvent.getY();
 
+            if(y == 950){
+                y = 0;
+            } else {
+                y = (y - 950)* -1;
+            }
+
+            if(x==540){
+                x = 0;
+            }else{
+                x = (x-540);
+            }
+            infoDialog(MainActivity.this, x, y);
             //customSurfaceView.setCircleX(x);
 
             //customSurfaceView.setCircleY(y);
@@ -183,5 +199,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             // Tell android os the onTouch event has not been processed.
             return false;
         }
+    }
+    private void infoDialog(Context c, float x, float y) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Graph Info")
+                .setMessage("f(x) = (" + customSurfaceView.getSlopeholder() + ")x + (" + customSurfaceView.getYint() + ")\n" + "Coordinates (x,y): (" + x + "," + y + ")")
+                .setView(taskEditText)
+                .setNegativeButton("Done", null)
+                .create();
+        dialog.show();
     }
 }

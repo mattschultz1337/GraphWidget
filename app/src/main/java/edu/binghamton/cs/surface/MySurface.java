@@ -31,6 +31,7 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     private float circleY = 0;
     private float xint = 0;
     private float yint = 0;
+    private float slopeholder = 0;
 
     public MySurface(Context context) {
         super(context);
@@ -66,6 +67,7 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
     {
 
         float slope = (-yint)/(xint);
+        slopeholder = slope;
         float rightBoundY = (slope*540) + yint;
         rightBoundY = 950-rightBoundY;
         float leftBoundX = slope*(-540) + yint;
@@ -148,5 +150,8 @@ public class MySurface extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setPaint(Paint paint) {
         this.paint = paint;
+    }
+    public float getSlopeholder(){
+        return slopeholder;
     }
 }
